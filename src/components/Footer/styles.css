@@ -1,0 +1,39 @@
+.footer-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #0067AC 100%), linear-gradient(180deg, rgba(0, 103, 172, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+.footer-container .img {
+    height: 60px;
+    width: 150px;
+    justify-self: end;
+
+    background: #C0C0C0;
+
+    margin-right: 60px;
+}
+
+.footer-container .img img {
+    margin: auto;
+    display: block;
+    height: 100%;
+}
+
+.footer-copyright {
+    flex: 1;
+    justify-content: center;
+    display: flex;
+
+    margin-left: 210px;
+
+    color: white;
+}
