@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from "react-google-charts";
 import { Table } from 'semantic-ui-react'
+import { CursoPercent } from '../Inicio' 
+import api from '../../services/api';
 
 import './styles.css'
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer'
+import { RouteComponentProps } from 'react-router-dom';
 
-const Detalhes = () => {
+const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any>) => {
+    const [cursoPercent, setcursoPercent] = useState<CursoPercent>({
+        curso: '',
+        curso_abreviado: '',
+        percent_evasao: 0,
+        quant_aluno: 0,
+        quant_evasao: 0,
+    });
+
+    useEffect(() => {
+        setcursoPercent(props.location.state);
+    }, []);
+
     return (
         <>
             <Header />
@@ -23,8 +38,8 @@ const Detalhes = () => {
                                     loader={<div style={{ color: 'white' }}>Carregando</div>}
                                     data={[
                                         ['Constância', 'Porcentagem'],
-                                        ['Evasão', 66.38],
-                                        ['Permanência', 33.62],
+                                        ['Evasão', cursoPercent.percent_evasao],
+                                        ['Permanência', 100 - cursoPercent.percent_evasao],
                                     ]}
                                     options={{
                                         backgroundColor: 'transparent',
@@ -42,10 +57,8 @@ const Detalhes = () => {
                                 />
                             </div>
                             <div className="col-6 centralizar">
-                                <p>Ciências</p>
-                                <p>da</p>
-                                <p>Computação</p>
-                                <p className="students">Alunos: 432</p>
+                                <p style={{ textAlign: 'center', wordSpacing: '9999px' }}>{cursoPercent.curso}</p>
+                                <p className="students">Alunos: {cursoPercent.quant_aluno}</p>
                             </div>
                             <div className="col-12 alunos-table-div">
                                 <Table celled inverted selectable>
