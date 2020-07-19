@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Chart from "react-google-charts";
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
+import { Dimmer, Loader } from 'semantic-ui-react'
 
 import './styles.css'
 
@@ -31,8 +32,10 @@ const Inicio = () => {
       quant_aluno_total: 0,
       quant_evasao_total: 0  
     });
+    const [loader, setLoader] = useState('');
 
     useEffect(() => {
+        setLoader('active');
         api.get('evasao/').then(resp => {
             let result = resp.data;
             let curso_abreviado = ['cc', 'es', 'si'];
@@ -45,12 +48,17 @@ const Inicio = () => {
             setEvasao(result);
         }).catch(err => {
             alert(`Falha ao tentar buscar as informações de evasão dos alunos na api. Error: ${err}`);
+        }).finally(() => {
+            setLoader('disabled');
         })
     }, []);
 
     return (
         <>
             <Header />
+            <Dimmer className={loader}>
+                <Loader size="large" content='Carregando' />
+            </Dimmer>
             <main className="container-principal">
                 <div className="row">
                     <div className="col-md-12" style={{ height: 51 }}>
@@ -62,7 +70,7 @@ const Inicio = () => {
                                 <img src={Back} alt="Back"/>
                             </div>
                             {evasao.curso_percent.map((cp, i) => (
-                                <Link className="col-md-3 card" to={{
+                                <Link className="col-md-3 card" key={i} to={{
                                     pathname: `/detalhes/${cp.curso_abreviado}`,
                                     state: cp
                                 }}>
