@@ -341,7 +341,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                 <div className="col-6 centralizar">
                                     <p style={{ fontSize: '50px' }}>{alunoDetail.status.toUpperCase()}</p>
                                     <p className="students" style={{ textAlign: 'center' }}>
-                                        Sairá da Universidade
+                                        Abandonará a Universidade
                                     </p>
                                 </div>
                                 <div className="col-12 centralizar">
