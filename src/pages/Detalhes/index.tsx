@@ -8,32 +8,57 @@ import { Dimmer, Loader } from 'semantic-ui-react'
 import './styles.css'
 
 import Header from '../../components/Header';
-import Footer from '../../components/Footer'
+import Footer from '../../components/Footer';
+import MyDonutChart from '../../components/MyDonutChart';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface Aluno {
-    ano_ingresso: string,
+    ano_ingresso: number,
+    cidade_endereco: string,
     cor_raca: string,
     escola_publica: string,
     forma_ingresso: string,
     matricula: string,
-    percentual_integralizado: string,
+    media_global_aluno: number,
+    media_global_curso: number,
+    percentual_integralizado: number,
+    probabilidade_evasao: number,
     sexo: string,
     turno: string
 }
 
 interface CursoEvasao {
     lista_aluno: Aluno[],
-    percentual_evasao: string,
-    total_aluno: string,
-    total_evasao: string
+    percentual_evasao: number,
+    total_aluno: number,
+    total_evasao: number
 }
 
 interface AlunoDetail {
-    probabilidade_evasao: string,
-    media_global_aluno: string,
-    media_global_curso: string,
-    status: string
+    ano_ingresso?: number,
+    categoria_ingresso?: string,
+    cidade_endereco?: string,
+    cor_raca?: string,
+    curso?: string,
+    deficiencia?: string,
+    escola_ensino_medio?: string,
+    escola_publica?: string,
+    especificidade_ingresso?: string,
+    forma_ingresso?: string,
+    grau_academico?: string,
+    idade_ingresso?: number,
+    ideb_escola_ensino_medio?: string,
+    media_global_aluno?: number,
+    media_global_curso?: number,
+    modalidade?: string,
+    percentual_integralizado?: number,
+    probabilidade_evasao?: number,
+    semestre_ingresso?: number,
+    sexo?: string,
+    status?: string,
+    total_trancamentos?: number,
+    turno?: string,
+    uf_endereco?: string
 }
 
 const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) => {
@@ -46,69 +71,27 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
     });
     const [alunos, setAlunos] = useState<CursoEvasao>({
         lista_aluno: [],
-        percentual_evasao: '',
-        total_aluno: '',
-        total_evasao: ''
+        percentual_evasao: 0,
+        total_aluno: 0,
+        total_evasao: 0
     })
-    const [corRacaPie, setCorRacaPie] = useState<number[]>([])
-    const [turnoPie, setTurnoPie] = useState<number[]>([])
     const [loader, setLoader] = useState('');
+    const [mediaPie, setMediaPie] = useState<string[][]>()
     const [selectedRow, setSelectedRow] = useState<number>(-1);
-    const [alunoDetail, setAlunoDetail] = useState<AlunoDetail>({
-        probabilidade_evasao: '',
-        media_global_aluno: '',
-        media_global_curso: '',
-        status: ''
-    });
+    const [alunoDetail, setAlunoDetail] = useState<AlunoDetail>({});
 
     useEffect(() => {
         setcursoPercent(props.location.state);
         setLoader('active');
         api.get(`evasao/curso/${props.location.state.curso_abreviado}`)
             .then(resp => {
-                setAlunos(resp.data);
-                resp.data.lista_aluno.sort((a: Aluno, b: Aluno) => (a.percentual_integralizado > b.percentual_integralizado) ? 1 : -1).reverse();
-                var corRaca = [0, 0, 0, 0, 0, 0];
-                var turno = [0, 0, 0, 0];
-                for(let i = 0; i < resp.data.lista_aluno.length; i++) {
-                    switch(resp.data.lista_aluno[i].cor_raca) {
-                        case 'Pardo':
-                            corRaca[0]++;
-                            break;
-                        case 'Preto':
-                            corRaca[1]++;
-                            break;
-                        case 'Branco':
-                            corRaca[2]++;
-                            break;
-                        case 'Não quis declarar cor/raça':
-                            corRaca[3]++;
-                            break;
-                        case 'Amarelo':
-                            corRaca[4]++;
-                            break;
-                        case 'Não Informado':
-                            corRaca[5]++;
-                            break;
-                    }
-
-                    switch(resp.data.lista_aluno[i].turno) {
-                        case 'Integral':
-                            turno[0]++;
-                            break;
-                        case 'Matutino':
-                            turno[1]++;
-                            break;
-                        case 'Verpertino':
-                            turno[2]++;
-                            break;
-                        case 'Noturno':
-                            turno[3]++;
-                            break;
-                    }
+                resp.data.lista_aluno.sort((a: Aluno, b: Aluno) => (a.probabilidade_evasao > b.probabilidade_evasao) ? 1 : -1).reverse();
+                var mediaPieResult = [['Matrícula', 'Média Global Curso', 'Média Global Aluno']];
+                for(let i  = 0; i < resp.data.lista_aluno.length; i++) {
+                    mediaPieResult.push([resp.data.lista_aluno[i].matricula, resp.data.lista_aluno[i].media_global_curso, resp.data.lista_aluno[i].media_global_aluno]);
                 }
-                setCorRacaPie(corRaca);
-                setTurnoPie(turno);
+                setAlunos(resp.data);
+                setMediaPie(mediaPieResult);
             }).catch(err => {
                 alert(`Erro na tentativa de requisitar os alunos do curso de ${cursoPercent.curso}. Error: ${err}`);
             }).finally(() => {
@@ -151,8 +134,8 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                     loader={<div style={{ color: 'white' }}>Carregando</div>}
                                     data={[
                                         ['Constância', 'Porcentagem'],
-                                        ['Evasão', cursoPercent.percent_evasao],
-                                        ['Permanência', 100 - cursoPercent.percent_evasao],
+                                        ['Evasão', alunos.percentual_evasao],
+                                        ['Permanência', 100 - alunos.percentual_evasao],
                                     ]}
                                     options={{
                                         backgroundColor: 'transparent',
@@ -178,10 +161,9 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                     <Table.Header>
                                         <Table.Row>
                                             <Table.HeaderCell>Matrícula</Table.HeaderCell>
-                                            <Table.HeaderCell>Cor/Raça</Table.HeaderCell>
-                                            <Table.HeaderCell>Esc. Pública</Table.HeaderCell>
+                                            <Table.HeaderCell>Sexo</Table.HeaderCell>
                                             <Table.HeaderCell>Perc. Integralizado</Table.HeaderCell>
-                                            <Table.HeaderCell>Forma Ingresso</Table.HeaderCell>
+                                            <Table.HeaderCell>Prob. de Evasão</Table.HeaderCell>
                                         </Table.Row>
                                     </Table.Header>
 
@@ -192,10 +174,9 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                                 active={index === selectedRow}
                                                 onClick={() => {handleClickRow(index, aluno.matricula)}}>
                                                 <Table.Cell>{aluno.matricula}</Table.Cell>
-                                                <Table.Cell>{aluno.cor_raca}</Table.Cell>
-                                                <Table.Cell>{aluno.escola_publica}</Table.Cell>
-                                                <Table.Cell>{aluno.percentual_integralizado}</Table.Cell>
-                                                <Table.Cell>{aluno.forma_ingresso}</Table.Cell>
+                                                <Table.Cell>{aluno.sexo}</Table.Cell>
+                                                <Table.Cell>{aluno.percentual_integralizado} %</Table.Cell>
+                                                <Table.Cell>{aluno.probabilidade_evasao} %</Table.Cell>
                                             </Table.Row>
                                         ))}
                                     </Table.Body>
@@ -266,85 +247,141 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                         rootProps={{ 'data-testid': '1' }}
                                     />
                                 </div>
-                                <div className="col-6">
+                                <div className="col-12">
                                     <Chart
-                                        width={'16rem'}
+                                        width={'100%'}
                                         height={'200px'}
-                                        chartType="PieChart"
+                                        chartType="LineChart"
                                         loader={<div style={{ color: 'white' }}>Carregando</div>}
-                                        data={[
-                                            ['Cor/Raça', 'Quantidade'],
-                                            ['Pardo', corRacaPie[0]],
-                                            ['Preto', corRacaPie[1]],
-                                            ['Branco', corRacaPie[2]],
-                                            ['Não quis declarar cor/raça', corRacaPie[3]],
-                                            ['Amarelo', corRacaPie[4]],
-                                            ['Não Informado', corRacaPie[5]],
-                                        ]}
+                                        data={mediaPie}
                                         options={{
-                                            backgroundColor: 'transparent',
-                                            title: 'Forma de ingresso',
-                                            titleTextStyle: {
-                                                color: 'white'
+                                            hAxis: {
+                                                title: 'Matrículas',
+                                                slantedText: false,
+                                                titleTextStyle: {
+                                                    color: 'white'
+                                                },
                                             },
+                                            vAxis: {
+                                                title: 'Médias Globáis',
+                                                textStyle: {
+                                                    color: 'white',
+                                                },
+                                                titleTextStyle: {
+                                                    color: 'white'
+                                                },
+                                            },
+                                            backgroundColor: 'transparent',
                                             legend: {
                                                 position: 'bottom',
                                                 alignment: 'start',
                                                 textStyle: {
                                                     color: 'white'
                                                 }
-                                            }
-                                        }}
-                                        rootProps={{ 'data-testid': '1' }}
-                                    />
-                                </div>
-                                <div className="col-6">
-                                    <Chart
-                                        width={'16rem'}
-                                        height={'200px'}
-                                        chartType="PieChart"
-                                        loader={<div style={{ color: 'white' }}>Carregando</div>}
-                                        data={[
-                                            ['Turno', 'Quantidade'],
-                                            ['Integral', turnoPie[0]],
-                                            ['Matutino', turnoPie[1]],
-                                            ['Vespertino', turnoPie[2]],
-                                            ['Noturno', turnoPie[3]],
-                                        ]}
-                                        options={{
-                                            backgroundColor: 'transparent',
-                                            title: 'Turno',
-                                            titleTextStyle: {
-                                                color: 'white'
                                             },
-                                            legend: {
-                                                position: 'bottom',
-                                                alignment: 'start',
-                                                textStyle: {
-                                                    color: 'white'
-                                                }
-                                            }
+                                            colors: ['#BCBCBC', '#0067AC'],
+                                            series: {
+                                                1: { curveType: 'function' },
+                                            },
                                         }}
-                                        rootProps={{ 'data-testid': '1' }}
-                                    />
+                                        rootProps={{ 'data-testid': '2' }}
+                                        />
                                 </div>
                             </div>
                         }
                         {selectedRow !== -1 &&
                             <div className="row">
-                                <div className="col-6 centralizar">
-                                    <p style={{ fontSize: '50px' }}>{alunoDetail.probabilidade_evasao}%</p>
+                                <div className="col-3 centralizar">
+                                    <MyDonutChart value={alunoDetail.probabilidade_evasao} valuelabel={'Evasão'} size={116} strokewidth={26}/>
+                                </div>
+                                <div className="col-3 centralizar">
+                                    <p>{alunoDetail.ano_ingresso}</p>
                                     <p className="students" style={{ textAlign: 'center' }}>
-                                        Probabilidade de Evasão
+                                        Ano Ingresso
                                     </p>
                                 </div>
-                                <div className="col-6 centralizar">
-                                    <p style={{ fontSize: '50px' }}>{alunoDetail.status.toUpperCase()}</p>
+                                <div className="col-3 centralizar">
+                                    <p>{alunoDetail.cidade_endereco}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Cidade
+                                    </p>
+                                </div>
+                                <div className="col-3 centralizar">
+                                    <p>{alunoDetail.cor_raca}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Etnia
+                                    </p>
+                                </div>
+
+                                <div className="col-3 centralizar">
+                                    <p >{alunoDetail.escola_publica}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Escola Pública
+                                    </p>
+                                </div>
+                                <div className="col-3 centralizar">
+                                    <p >{alunoDetail.status?.toUpperCase()}</p>
                                     <p className="students" style={{ textAlign: 'center' }}>
                                         Abandonará a Universidade
                                     </p>
                                 </div>
-                                <div className="col-12 centralizar">
+                                <div className="col-3 centralizar">
+                                    <p >{alunoDetail.idade_ingresso}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Idade Ingresso
+                                    </p>
+                                </div>
+                                <div className="col-3 centralizar">
+                                    <p>{alunoDetail.total_trancamentos}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Total Trancamentos
+                                    </p>
+                                </div>
+
+                                <div className="col-3 centralizar">
+                                    <p>{alunoDetail.media_global_aluno}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Média Global do Aluno
+                                    </p>
+                                </div>
+                                <div className="col-3 centralizar">
+                                    <p>{alunoDetail.percentual_integralizado}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Percentual Integralizado
+                                    </p>
+                                </div>
+                                <div className="col-3 centralizar">
+                                    <p style={{ fontSize: '14px' }}>{alunoDetail.modalidade}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Modadalidade
+                                    </p>
+                                </div>
+                                <div className="col-3 centralizar">
+                                    <p style={{ fontSize: '14px' }}>{alunoDetail.turno}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Turno
+                                    </p>
+                                </div>
+
+                                <div className="col-8 centralizar">
+                                    {typeof alunoDetail.ideb_escola_ensino_medio! === 'number' &&
+                                        <p>{alunoDetail.ideb_escola_ensino_medio}</p>
+                                    }
+                                    {alunoDetail.ideb_escola_ensino_medio!.length > 5 &&
+                                        <p style={{ fontSize: '12px' }}>{alunoDetail.ideb_escola_ensino_medio}</p>
+                                    }
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Ideb
+                                    </p>
+                                </div>
+                                <div className="col-4 centralizar">
+                                    <p style={{ fontSize: '12px' }}>{alunoDetail.forma_ingresso}</p>
+                                    <p className="students" style={{ textAlign: 'center' }}>
+                                        Forma de Ingresso
+                                    </p>
+                                </div>
+                                
+                                {/* <div className="col-12 centralizar">
                                     <p style={{ fontSize: '34px' }}>{alunoDetail.media_global_aluno}</p>
                                     <p className="students" style={{ textAlign: 'center' }}>
                                         Média Global do Aluno
@@ -355,7 +392,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                     <p className="students" style={{ textAlign: 'center' }}>
                                         Média Global do Curso
                                     </p>
-                                </div>
+                                </div> */}
                             </div>
                         }
                     </div>

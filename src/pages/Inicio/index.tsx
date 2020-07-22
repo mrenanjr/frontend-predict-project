@@ -14,6 +14,7 @@ import Back from '../../assets/arrow_back-24px.svg';
 
 interface Evasao {
     curso_percent: CursoPercent[],
+    percent_evasao_total: number,
     quant_aluno_total: number,
     quant_evasao_total: number
 };
@@ -29,6 +30,7 @@ export interface CursoPercent {
 const Inicio = () => {
     const [evasao, setEvasao] = useState<Evasao>({
       curso_percent: [],
+      percent_evasao_total: 0,
       quant_aluno_total: 0,
       quant_evasao_total: 0  
     });
@@ -40,9 +42,6 @@ const Inicio = () => {
             let result = resp.data;
             let curso_abreviado = ['cc', 'es', 'si'];
             for(let i = 0; i < result.curso_percent.length; i++) {
-                result.curso_percent[i].percent_evasao = Number(result.curso_percent[i].percent_evasao);
-                result.curso_percent[i].quant_aluno = Number(result.curso_percent[i].quant_aluno);
-                result.curso_percent[i].quant_evasao = Number(result.curso_percent[i].quant_evasao);
                 result.curso_percent[i].curso_abreviado = curso_abreviado[i];
             }
             setEvasao(result);
@@ -63,6 +62,7 @@ const Inicio = () => {
                 <div className="row">
                     <div className="col-md-12" style={{ height: 51 }}>
                         <p className="title">Sistema de Análise Preditiva</p>
+                        <p className="students" style={{ textAlign: 'center' }}>Total de alunos: {evasao.quant_aluno_total}</p>
                     </div>
                     <div className="col-md-12" style={{ height: 'calc(100% - 51px)'}}>
                         <div className="row justify-content-md-center">
@@ -76,7 +76,7 @@ const Inicio = () => {
                                 }}>
                                     <p className="number">{i + 1}º</p>
                                     <p className="course">{cp.curso}</p>
-                                    <p className="students">Alunos: {cp.quant_aluno}</p>
+                                    <p className="students">Predição de evasão: {cp.quant_evasao}</p>
                                     <Chart
                                         width={'16rem'}
                                         height={'200px'}

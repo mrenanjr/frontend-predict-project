@@ -27,6 +27,7 @@
 
 .centralizar p {
     margin: 0px;
+    text-align: center;
 }
 
 .alunos-table-div {

@@ -11,7 +11,7 @@ import QuitIcon from '../../assets/power_settings_new-24px.svg';
 
 const Header = () => {
     const instOptions = [
-        { key: 'uni', value: 'UNI', text: 'UNI' }
+        { key: 'ies', value: 'IES', text: 'IES' }
     ];
     return (
         <header className="header-container">
@@ -21,10 +21,10 @@ const Header = () => {
                 </Link>
             </div>
             <Link to="/inicio">
-                <p>S.I.S.A.P</p>
+                <p>SISAP</p>
             </Link>
             <div className="menu">
-                <Select placeholder='Selecione a Instituição' value='UNI' options={instOptions} />
+                <Select placeholder='Selecione a Instituição' value='IES' options={instOptions} />
                 <Link to="/inicio">
                     <img src={HomeIcon} alt="Home" />
                 </Link>
