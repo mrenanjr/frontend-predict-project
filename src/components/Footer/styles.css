@@ -19,7 +19,7 @@
 
     background: #C0C0C0;
 
-    margin-right: 60px;
+    margin-right: 32px;
 }
 
 .footer-container .img img {
@@ -32,8 +32,6 @@
     flex: 1;
     justify-content: center;
     display: flex;
-
-    margin-left: 210px;
 
     color: white;
 }

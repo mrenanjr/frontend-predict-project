@@ -16,14 +16,14 @@ const Login = () => {
     return (
         <>
             <div className="container-login fadeInDown">
-                <div>
-                    <p className="title">S.I.S.A.P</p>
+                <div >
+                    <p className="title">SISAP</p>
                     <p className="title-name">Sistema de Análise Preditiva</p>
                 </div>
                 <form>
-                    <Input className="second login" icon="user" iconPosition="left" placeholder="Informe seu login único."/>
-                    <Input className="third" icon="lock" iconPosition="left" placeholder="Informe sua senha."/>
-                    <button className="fourth" type="submit" onClick={handleLogin}>Entrar</button>
+                    <Input className="login-input" icon="user" iconPosition="left" placeholder="Informe seu login único."/>
+                    <Input className="password-input" icon="lock" iconPosition="left" placeholder="Informe sua senha."/>
+                    <button type="submit" onClick={handleLogin}>Entrar</button>
                 </form>
             </div>
             <Footer/>

@@ -60,13 +60,13 @@ const Inicio = () => {
             </Dimmer>
             <main className="container-principal">
                 <div className="row">
-                    <div className="col-md-12" style={{ height: 51 }}>
+                    <div className="col-md-12">
                         <p className="title">Sistema de Análise Preditiva</p>
                         <p className="students" style={{ textAlign: 'center' }}>Total de alunos: {evasao.quant_aluno_total}</p>
                     </div>
-                    <div className="col-md-12" style={{ height: 'calc(100% - 51px)'}}>
-                        <div className="row justify-content-md-center">
-                            <div className="col-md">
+                    <div className="col-md-12">
+                        <div className="row justify-content-sm-center">
+                            <div className="col-md" style={{ justifyContent: 'center' }}>
                                 <img src={Back} alt="Back"/>
                             </div>
                             {evasao.curso_percent.map((cp, i) => (
@@ -78,8 +78,8 @@ const Inicio = () => {
                                     <p className="course">{cp.curso}</p>
                                     <p className="students">Predição de evasão: {cp.quant_evasao}</p>
                                     <Chart
-                                        width={'16rem'}
-                                        height={'200px'}
+                                        width={"100%"}
+                                        height={"250px"}
                                         chartType="PieChart"
                                         loader={<div style={{ color: 'white' }}>Carregando</div>}
                                         data={[
@@ -103,7 +103,7 @@ const Inicio = () => {
                                     />
                                 </Link>
                             ))}
-                            <div className="col-md" style={{ justifyContent: 'flex-end' }}>
+                            <div className="col-md" style={{ justifyContent: 'center' }}>
                                 <img src={Next} alt="Next"/>
                             </div>
                         </div>

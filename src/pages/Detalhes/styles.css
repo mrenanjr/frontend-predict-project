@@ -33,10 +33,32 @@
 .alunos-table-div {
     max-height: 185px;
     display: block;
-    overflow-y: scroll;
-    padding-left: 6px;
+    overflow: auto;
+}
+
+.course-name {
+    text-align: center;
+    word-spacing: 9999px;
+}
+
+.line {
+    flex-direction: row;
+    display: flex;
 }
 
 tbody tr {
     cursor: pointer;
+}
+
+@media (max-width: 1080px) {
+    .line {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 700px) {
+    .alunos-table-div {
+        width: 320px;
+    }
 }

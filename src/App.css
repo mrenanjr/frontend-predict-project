@@ -1,9 +1,9 @@
-/* * {
+* {
   margin: 0;
   padding: 0;
   outline: 0;
   box-sizing: border-box;
-} */
+}
 
 body {
   height: 100vh;
@@ -22,7 +22,7 @@ body {
 }
 
 .container-principal {
-  width: 80%;
+  width: 90%;
   height: calc(100vh - 180px);
   overflow-y: auto;
   
@@ -35,7 +35,7 @@ body {
   display: flex;
   justify-content: center;
   
-  padding: 40px;
+  padding: 20px;
   border-radius: 12px;
 }
 

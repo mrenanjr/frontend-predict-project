@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Select } from 'semantic-ui-react';
 
@@ -13,6 +13,8 @@ const Header = () => {
     const instOptions = [
         { key: 'ies', value: 'IES', text: 'IES' }
     ];
+    const [showInMobile, setShowInMobile] = useState(false);
+
     return (
         <header className="header-container">
             <div className="img">
@@ -23,17 +25,24 @@ const Header = () => {
             <Link to="/inicio">
                 <p>SISAP</p>
             </Link>
-            <div className="menu">
-                <Select placeholder='Selecione a Instituição' value='IES' options={instOptions} />
-                <Link to="/inicio">
-                    <img src={HomeIcon} alt="Home" />
-                </Link>
-                <Link to="/sobrenos">
-                    <img src={InfoIcon} alt="Informação" />
-                </Link>
-                <Link to="/" style={{ marginRight: 60 }}>
-                    <img src={QuitIcon} alt="Sair" />
-                </Link>
+            <div className={`menu ${showInMobile ? 'on' : '' }`}>
+                <div className="menu-toogle" onClick={() => setShowInMobile(!showInMobile)}>
+                    <div className="one"></div>
+                    <div className="two"></div>
+                    <div className="three"></div>
+                </div>
+                <div className="elements">
+                    <Select placeholder='Selecione a Instituição' value='IES' options={instOptions} />
+                    <Link to="/inicio" onClick={() => setShowInMobile(!showInMobile)}>
+                        <img src={HomeIcon} alt="Home" />
+                    </Link>
+                    <Link to="/sobrenos" onClick={() => setShowInMobile(!showInMobile)}>
+                        <img src={InfoIcon} alt="Informação" />
+                    </Link>
+                    <Link to="/" onClick={() => setShowInMobile(!showInMobile)}>
+                        <img src={QuitIcon} alt="Sair" />
+                    </Link>
+                </div>
             </div>
         </header>
     );
