@@ -38,7 +38,7 @@ const Inicio = () => {
 
     useEffect(() => {
         setLoader('active');
-        api.get('evasao/').then(resp => {
+        api.get(`evasao?token=${localStorage.getItem('token')}`).then(resp => {
             let result = resp.data;
             let curso_abreviado = ['cc', 'es', 'si'];
             for(let i = 0; i < result.curso_percent.length; i++) {

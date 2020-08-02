@@ -10,39 +10,58 @@ const Inicio = () => {
         <>
             <Header />
             <main className="container-principal">
-                <div className="row" style={{ height: '100%' }}>
-                    <div className="col-2 img">
+                <div className="row justify-content-center" style={{ height: '100%' }}>
+                    <div className="col-3 img">
                         <img src={Img} alt="Imagem"/>
-                    </div>
-                    <div className="col-9">
-                        <p className="sobrenos-text">
-                                Observações e análises de fenômenos como a retenção e evasão no ensino superior
-                            público é de suma importância visto que, compromete a taxa de de conclusão nos cursos de Bacharelado e Licenciatura, gera ociosidade de recursos humanos e materiais e não retorna os
-                            investimentos aplicados pelos recursos públicos à própria sociedade. Assim os impactos
-                            negativos que a retenção e a evasão causam na sociedade e na própria UFG são sensíveis e
-                            importantes de serem investigados e estudados.
-                        </p>
                     </div>
                     <div className="col-12">
                         <p className="sobrenos-text">
-                                Posto que a sociedade é forçada a custear
-                            estes estudantes e que eles não irão dar um retorno ao investimento aplicado em sua
-                            formação, dentro do período previsto se prolongando no curso (retenção) ou até mesmo
-                            inviabilizando seu retorno como um profissional graduado (evasão) regressando, assim, os
-                            recursos investidos durante sua permanência na universidade. Estes estudantes ocupam uma
-                            vaga pública que poderia ter sido mais bem aproveitada.
-                        </p>
-                        <p className="sobrenos-text">
-                                Ainda, de acordo com o site “somospar” a taxa de evasão escolar no Brasil é a terceira
-                            maior do mundo com média de 24,1% na lista dos 100 países com melhor IDH. Existem
-                            algumas causas listadas pelo site “politize.com.br” que são: Acesso limitado; Necessidade
-                            especial; Gravidez e Maternidade; Atividades ilegais; Mercado de trabalho; Pobreza; Violência;
-                            Deficit de aprendizagem; Qualidade da educação e etc.
-                        </p>
-                        <p className="sobrenos-text">
-                                O projeto discorre da procura em diminuir a quantidade de retenção e evasão de
-                            estudantes dos cursos da Universidade Federal de Goiás (UFG), diminuindo sua taxa de
-                            retenção e evasão em pelo menos 50% em 5 anos comparado ao total.
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;O Sistema de Análise Preditiva – SISAP é o produto final funcional proveniente da 
+                            Especialização em Design de Sistemas e Soluções de Business Inteligence – DSSBI e da Especialização em 
+                            Governança e Gestão de Sistemas e Tecnologias da Informação – EspGTI (Turma 2018/2020) do 
+                            Instituto de Informática da Universidade Federal de Goiás.
+                            <br />
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;O SISAP trata-se de um modelo preditivo com uma interface amigável para retorno 
+                            dos resultados obtidos pelo algoritmo. O algoritmo foi criado e testado com dados extraídos do histórico 
+                            acadêmico de alguns cursos em uma Instituição de Ensino Superior (IES) no período compreendido entre 2008 a 2018. 
+                            De posse destes dados, foram avaliados os principais indicadores que poderiam ser apontados como fatores influentes 
+                            para o problema da evasão através de um algoritmo que utiliza “<i>machine learning</i>” ou aprendizado de máquina.
+                            <br />
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;O algoritmo foi elaborado a partir de um estudo longitudinal, resultando em um modelo de 
+                            classificação preditiva cuja acurácia supera os 70% (setenta por cento).
+                            <br />
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;Assim o SISAP é um “<i>dashboard</i>” onde as métricas consolidadas são organizadas de modo inteligível, 
+                            com linguagem de fácil acesso aos usuários, contribuindo assim para gestão acadêmica, possibilitando a tomada de ações tendo em 
+                            vista discentes apontados pelo algoritmo com alta probabilidade de evasão.
+                            <br />
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;O sistema encontra-se em sua Versão 1.0 criada em agosto/2020
+                            <br />
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Estudantes do Projeto:
+                            <br />
+                            <br />
+                            <b>&nbsp;&nbsp;&nbsp;&nbsp;Especialização em Design de Sistemas e Soluções de Business Inteligence – DSSBI:</b>
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Anderson de Oliveira Costa<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Breno Rodrigo da Silva<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Manoel Renan Oliveira Júnior<br />
+                            <br />
+                            <b>&nbsp;&nbsp;&nbsp;&nbsp;Especialização em Governança e Gestão de Sistemas e Tecnologias da Informação – EspGTI:</b>
+                            <br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Daniel Chaffe Stone<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Diogo Sebastião Fernandes Guimarães<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Franceles Bezerra de Oliveira<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Joelson Coelho Costa<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Leila Aparecida Santos Motta Cunha<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;Matheus Silva Santos<br />
                         </p>
                     </div>
                 </div>

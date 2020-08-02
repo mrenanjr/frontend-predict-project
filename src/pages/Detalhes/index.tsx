@@ -83,7 +83,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
     useEffect(() => {
         setcursoPercent(props.location.state);
         setLoader('active');
-        api.get(`evasao/curso/${props.location.state.curso_abreviado}`)
+        api.get(`evasao/curso/${props.location.state.curso_abreviado}?token=${localStorage.getItem('token')}`)
             .then(resp => {
                 resp.data.lista_aluno.sort((a: Aluno, b: Aluno) => (a.probabilidade_evasao > b.probabilidade_evasao) ? 1 : -1).reverse();
                 var mediaPieResult = [['Matrícula', 'Média Global Curso', 'Média Global Aluno']];
@@ -104,7 +104,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
             setSelectedRow(-1);
         } else {
             setLoader('active');
-            api.get(`evasao/aluno/${matricula}`)
+            api.get(`evasao/aluno/${matricula}?token=${localStorage.getItem('token')}`)
                 .then(resp => {
                     setAlunoDetail(resp.data);
                     setSelectedRow(index);

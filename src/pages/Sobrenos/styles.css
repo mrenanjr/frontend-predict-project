@@ -1,16 +1,15 @@
 .container-principal .img {
-    width: 400px;
-    height: 100px;
+    height: 200px;
     background-color: #C0C0C0;
     text-align: center;
-    padding: 0px;
-    margin-left: 15px;
 }
 
 .container-principal .img  img {
     height: 100%;
+    width: 100%;
 }
 
 .container-principal .sobrenos-text {
     color: white;
+    font-size: 16px;
 }

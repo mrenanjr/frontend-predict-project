@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Select } from 'semantic-ui-react';
 
 import './styles.css';
@@ -13,7 +14,15 @@ const Header = () => {
     const instOptions = [
         { key: 'ies', value: 'IES', text: 'IES' }
     ];
+    const history = useHistory();
     const [showInMobile, setShowInMobile] = useState(false);
+
+    function handleLogoutCLick() {
+        setShowInMobile(!showInMobile)
+
+        localStorage.clear()
+        history.push('/');
+    }
 
     return (
         <header className="header-container">
@@ -39,9 +48,9 @@ const Header = () => {
                     <Link to="/sobrenos" onClick={() => setShowInMobile(!showInMobile)}>
                         <img src={InfoIcon} alt="Informação" />
                     </Link>
-                    <Link to="/" onClick={() => setShowInMobile(!showInMobile)}>
+                    <a onClick={handleLogoutCLick}>
                         <img src={QuitIcon} alt="Sair" />
-                    </Link>
+                    </a>
                 </div>
             </div>
         </header>
