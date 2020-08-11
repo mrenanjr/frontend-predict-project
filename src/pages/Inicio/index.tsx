@@ -65,7 +65,7 @@ const Inicio = () => {
                         <p className="students" style={{ textAlign: 'center' }}>Total de alunos: {evasao.quant_aluno_total}</p>
                     </div>
                     <div className="col-md-12">
-                        <div className="row justify-content-sm-center">
+                        <div className="row justify-content-center">
                             <div className="col-md" style={{ justifyContent: 'center' }}>
                                 <img src={Back} alt="Back"/>
                             </div>
@@ -91,6 +91,7 @@ const Inicio = () => {
                                             backgroundColor: 'transparent',
                                             pieHole: 0.4,
                                             colors: ['#0067AC', '#BCBCBC'],
+                                            fontSize: 12,
                                             legend: {
                                                 position: 'bottom',
                                                 alignment: 'start',

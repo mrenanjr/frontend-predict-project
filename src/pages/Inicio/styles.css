@@ -6,8 +6,9 @@
 
 .container-principal .card {
     width: 320px;
-    margin: 15px;
-    background: linear-gradient(180deg, rgba(0, 103, 172, 0.5) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, rgba(53, 68, 79, 0) 0%, rgba(0, 103, 172, 0.5) 100%);
+    margin: 10px;
+    padding: 0px;
+    background: linear-gradient(180deg, #77787b 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, rgba(53, 68, 79, 0) 0%, #77787b 100%);
     cursor: pointer;
 
     transition: 0.2s;
@@ -35,7 +36,21 @@
 .container-principal .card p {
     text-align: center;
 
-    font-weight: 500;
     margin-bottom: 0.5rem;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.container-principal .title {
+    font-weight: bold;
+    color: white;
+}
+
+.container-principal .students {
+    font-weight: normal;
+    font-size: 18px;
+    color: #0F084B;
+}
+
+.container-principal .number {
+    font-weight: bold;
 }

@@ -31,7 +31,7 @@ const MyDonutChart = (props: PropsInfo) => {
             <text className="donutchart-text" x={halfsize} y={halfsize} style={{textAnchor:'middle'}} >
                 <tspan className="donutchart-text-val">{props.value}</tspan>
                 <tspan className="donutchart-text-percent">%</tspan>
-                <tspan className="donutchart-text-label" x={halfsize} y={halfsize+10}>{props.valuelabel}</tspan>
+                <tspan className="donutchart-text-label" dy="0.5em" x={halfsize} y={halfsize+10} fill="#0F084B">{props.valuelabel}</tspan>
             </text>
         </svg>
     );

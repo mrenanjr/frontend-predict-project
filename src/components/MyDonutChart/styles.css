@@ -11,7 +11,6 @@
 }
 
 .donutchart {
-    margin: 0 auto;
     border-radius: 50%;
     display: block;
 }
@@ -21,13 +20,13 @@
 }
 
 .donutchart-text-val{
-    font-size:16px;
+    font-size: 18px;
 }
 
 .donutchart-text-percent{
-    font-size:14px;
+    font-size: 16px;
 }
 
 .donutchart-text-label{
-    font-size:9px;
+    font-size: 16px;
 }

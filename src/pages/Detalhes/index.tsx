@@ -97,7 +97,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
             }).finally(() => {
                 setLoader('disabled');
             })
-    }, [cursoPercent.curso, props.location.state]);
+    }, []);
 
     function handleClickRow(index: number, matricula: string) {
         if(index === selectedRow) {
@@ -149,6 +149,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                             },
                                             pieHole: 0.4,
                                             colors: ['#0067AC', '#BCBCBC'],
+                                            fontSize: 12,
                                             legend: {
                                                 position: 'bottom',
                                                 alignment: 'start',
@@ -179,6 +180,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                             backgroundColor: 'transparent',
                                             pieHole: 0.4,
                                             colors: ['#0067AC', '#BCBCBC'],
+                                            fontSize: 12,
                                             legend: {
                                                 position: 'bottom',
                                                 alignment: 'start',
@@ -209,6 +211,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                             backgroundColor: 'transparent',
                                             pieHole: 0.4,
                                             colors: ['#0067AC', '#BCBCBC'],
+                                            fontSize: 12,
                                             legend: {
                                                 position: 'bottom',
                                                 alignment: 'start',
@@ -226,82 +229,82 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                             <>
                                 <div className="col-md-12 line">
                                     <div className="col-2 centralizar">
-                                        <MyDonutChart value={alunoDetail.probabilidade_evasao} valuelabel={'Evasão'} size={116} strokewidth={26}/>
+                                        <MyDonutChart value={alunoDetail.probabilidade_evasao} valuelabel={'Evasão'} size={126} strokewidth={26}/>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.ano_ingresso}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Ano Ingresso
                                         </p>
+                                        <p>{alunoDetail.ano_ingresso}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.cidade_endereco}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Cidade
                                         </p>
+                                        <p>{alunoDetail.cidade_endereco}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.cor_raca}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Etnia
                                         </p>
+                                        <p>{alunoDetail.cor_raca}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p >{alunoDetail.escola_publica}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Escola Pública
                                         </p>
+                                        <p >{alunoDetail.escola_publica}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p >{alunoDetail.status?.toUpperCase()}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Abandonará a Universidade
                                         </p>
+                                        <p >{alunoDetail.status?.toUpperCase()}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-12 line">
                                     <div className="col-2 centralizar">
-                                        <p >{alunoDetail.idade_ingresso}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Idade Ingresso
                                         </p>
+                                        <p >{alunoDetail.idade_ingresso}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.total_trancamentos}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Total Trancamentos
                                         </p>
+                                        <p>{alunoDetail.total_trancamentos}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.media_global_aluno}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Média Global do Aluno
                                         </p>
+                                        <p>{alunoDetail.media_global_aluno}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.percentual_integralizado}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Percentual Integralizado
                                         </p>
+                                        <p>{alunoDetail.percentual_integralizado}%</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.modalidade}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Modadalidade
                                         </p>
+                                        <p>{alunoDetail.modalidade}</p>
                                     </div>
                                     <div className="col-2 centralizar">
-                                        <p>{alunoDetail.turno}</p>
-                                        <p className="students" style={{ textAlign: 'center' }}>
+                                        <p className="course" style={{ textAlign: 'center' }}>
                                             Turno
                                         </p>
+                                        <p>{alunoDetail.turno}</p>
                                     </div>
                                 </div>
                             </>
                         }
-                    <div className="col-md-12 line">
+                    <div className="col-md-12 line" style={{ paddingTop: '5px' }}>
                         <div className="col-md-5 alunos-table-div">
-                            <Table color={'blue'} celled inverted selectable>
+                            <Table celled inverted selectable>
                                 <Table.Header>
                                     <Table.Row>
                                         <Table.HeaderCell>Matrícula</Table.HeaderCell>
@@ -319,8 +322,8 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                             onClick={() => {handleClickRow(index, aluno.matricula)}}>
                                             <Table.Cell>{aluno.matricula}</Table.Cell>
                                             <Table.Cell>{aluno.sexo}</Table.Cell>
-                                            <Table.Cell>{aluno.percentual_integralizado} %</Table.Cell>
-                                            <Table.Cell>{aluno.probabilidade_evasao} %</Table.Cell>
+                                            <Table.Cell>{aluno.percentual_integralizado}%</Table.Cell>
+                                            <Table.Cell>{aluno.probabilidade_evasao}%</Table.Cell>
                                         </Table.Row>
                                     ))}
                                 </Table.Body>
@@ -351,6 +354,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                                 color: 'white'
                                             },
                                         },
+                                        fontSize: 12,
                                         backgroundColor: 'transparent',
                                         legend: {
                                             position: 'bottom',
@@ -359,7 +363,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                                 color: 'white'
                                             }
                                         },
-                                        colors: ['#BCBCBC', '#0067AC'],
+                                        colors: ['#BCBCBC', '#0F084B'],
                                         series: {
                                             1: { curveType: 'function' },
                                         },
@@ -371,25 +375,25 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                         {selectedRow !== -1 &&
                             <div className="col-md-7 ">
                                 <div className="col-12 centralizar">
-                                    <p>{alunoDetail.escola_ensino_medio}</p>
-                                    <p className="students" style={{ textAlign: 'center' }}>
+                                    <p className="course" style={{ textAlign: 'center' }}>
                                         Escola Ensino Médio
                                     </p>
+                                    <p>{alunoDetail.escola_ensino_medio}</p>
                                 </div>
                                 <div className="col-12 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>IDEB</p>
                                     {typeof alunoDetail.ideb_escola_ensino_medio! === 'number' &&
                                         <p>{alunoDetail.ideb_escola_ensino_medio}</p>
                                     }
                                     {alunoDetail.ideb_escola_ensino_medio!.length > 5 &&
                                         <p>{alunoDetail.ideb_escola_ensino_medio}</p>
                                     }
-                                    <p className="students" style={{ textAlign: 'center' }}>Ideb</p>
                                 </div>
                                 <div className="col-12 centralizar">
-                                    <p>{alunoDetail.forma_ingresso}</p>
-                                    <p className="students" style={{ textAlign: 'center' }}>
+                                    <p className="course" style={{ textAlign: 'center' }}>
                                         Forma de Ingresso
                                     </p>
+                                    <p>{alunoDetail.forma_ingresso}</p>
                                 </div>
                             </div>
                         }

@@ -10,9 +10,9 @@ body {
   font: 400 14px Roboto, sans-serif;
   
   box-shadow: inset 0px 4px 20px #000000;
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(5px);
 
-  background: url('../src/assets/background-image.png');
+  background: url('../src/assets/background-image.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -30,12 +30,12 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
 
-  background: linear-gradient(180deg, rgba(0, 103, 172, 0.5) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, rgba(53, 68, 79, 0) 0%, rgba(0, 103, 172, 0.5) 100%);
+  background: linear-gradient(180deg, #77787b 0%, rgba(255, 255, 255, 0) 150%), linear-gradient(180deg, rgba(53, 68, 79, 0) 0%, #77787b 150%);
 
   display: flex;
   justify-content: center;
   
-  padding: 20px;
+  padding: 15px;
   border-radius: 12px;
 }
 
@@ -44,14 +44,10 @@ body {
 }
 
 .container-principal .number {
-  color: #0F084B;
   font-size: 24px;
+  color: #0F084B;
 }
 
 .container-principal .course {
-  font-size: 18px;
-}
-
-.container-principal .students {
-  font-size: 12px;
-}
+  font-size: 22px;
+} 
