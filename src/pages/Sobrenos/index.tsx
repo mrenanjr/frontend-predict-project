@@ -19,8 +19,8 @@ const Inicio = () => {
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;O Sistema de Análise Preditiva – SISAP é o produto final funcional proveniente da 
                             Especialização em Design de Sistemas e Soluções de Business Inteligence – DSSBI e da Especialização em 
-                            Governança e Gestão de Sistemas e Tecnologias da Informação – EspGTI (Turma 2018/2020) do 
-                            Instituto de Informática da Universidade Federal de Goiás.
+                            Governança e Gestão de Sistemas e Tecnologias da Informação – EspGTI do Instituto de Informática da 
+                            Universidade Federal de Goiás.
                             <br />
                             <br />
                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -33,7 +33,7 @@ const Inicio = () => {
                             <br />
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;O algoritmo foi elaborado a partir de um estudo longitudinal, resultando em um modelo de 
-                            classificação preditiva cuja acurácia supera os 70% (setenta por cento).
+                            classificação preditiva uma acurácia que supera os 70% (setenta por cento).
                             <br />
                             <br />
                             &nbsp;&nbsp;&nbsp;&nbsp;

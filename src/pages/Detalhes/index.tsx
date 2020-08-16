@@ -6,11 +6,14 @@ import api from '../../services/api';
 import { Dimmer, Loader } from 'semantic-ui-react'
 
 import './styles.css'
+import PDFImg from '../../assets/picture_as_pdf-24px.svg';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import MyDonutChart from '../../components/MyDonutChart';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
+import DetalhesPrint from '../DetalhesPrint';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 interface Aluno {
     ano_ingresso: number,
@@ -34,7 +37,7 @@ interface CursoEvasao {
     total_evasao: number
 }
 
-interface AlunoDetail {
+export interface AlunoDetail {
     ano_ingresso?: number,
     categoria_ingresso?: string,
     cidade_endereco?: string,
@@ -79,10 +82,16 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
     const [mediaPie, setMediaPie] = useState<string[][]>()
     const [selectedRow, setSelectedRow] = useState<number>(-1);
     const [alunoDetail, setAlunoDetail] = useState<AlunoDetail>({});
+    const [matricula, setMatricula] = useState('');
+    const [PDFliberado, setPDFliberado] = useState(false);
+    const history = useHistory();
 
     useEffect(() => {
-        setcursoPercent(props.location.state);
+        if(props.location.state) setcursoPercent(props.location.state);
+        else history.push('/inicio');
+
         setLoader('active');
+        
         api.get(`evasao/curso/${props.location.state.curso_abreviado}?token=${localStorage.getItem('token')}`)
             .then(resp => {
                 resp.data.lista_aluno.sort((a: Aluno, b: Aluno) => (a.probabilidade_evasao > b.probabilidade_evasao) ? 1 : -1).reverse();
@@ -97,6 +106,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
             }).finally(() => {
                 setLoader('disabled');
             })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function handleClickRow(index: number, matricula: string) {
@@ -106,8 +116,13 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
             setLoader('active');
             api.get(`evasao/aluno/${matricula}?token=${localStorage.getItem('token')}`)
                 .then(resp => {
+                    setMatricula(matricula);
+                    localStorage.setItem('aluno', JSON.stringify(resp.data));
                     setAlunoDetail(resp.data);
                     setSelectedRow(index);
+                    setTimeout(() => {
+                        setPDFliberado(true);
+                    }, 4);
                 }).catch(err => {
                     alert(`Erro na tentativa de buscar informações do aluno de matrícula ${matricula}. Error: ${err}`);
                 }).finally(() => {
@@ -124,184 +139,184 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
             </Dimmer>
             <div className="container-principal">
                 <div className="row">
-                        {selectedRow === -1 &&
+                    {selectedRow === -1 &&
+                        <div className="col-md-12 line">
+                            <div className="col-md-3 centralizar">
+                                <p className="course-name">{cursoPercent.curso}</p>
+                                <p className="students">Alunos: {cursoPercent.quant_aluno}</p>
+                            </div>
+                            <div className="col-md-3">
+                                <Chart
+                                    width={'100%'}
+                                    height={'250px'}
+                                    chartType="PieChart"
+                                    loader={<div style={{ color: 'white' }}>Carregando</div>}
+                                    data={[
+                                        ['Constância', 'Porcentagem'],
+                                        ['Evasão', alunos.percentual_evasao],
+                                        ['Permanência', 100 - alunos.percentual_evasao],
+                                    ]}
+                                    options={{
+                                        backgroundColor: 'transparent',
+                                        title: 'Evasão',
+                                        titleTextStyle: {
+                                            color: 'white'
+                                        },
+                                        pieHole: 0.4,
+                                        colors: ['#0067AC', '#BCBCBC'],
+                                        fontSize: 12,
+                                        legend: {
+                                            position: 'bottom',
+                                            alignment: 'start',
+                                            textStyle: {
+                                                color: 'white'
+                                            }
+                                        }
+                                    }}
+                                    rootProps={{ 'data-testid': '1' }}
+                                />
+                            </div>
+                            <div className="col-md-3">
+                                <Chart
+                                    width={'100%'}
+                                    height={'250px'}
+                                    chartType="PieChart"
+                                    loader={<div style={{ color: 'white' }}>Carregando</div>}
+                                    data={[
+                                        ['Escola Pública', 'Porcentagem'],
+                                        ['Não', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.escola_publica === 'SIM').length) / 100],
+                                        ['Sim', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.escola_publica === 'NÃO').length) / 100],
+                                    ]}
+                                    options={{
+                                        title: 'Escola Pública',
+                                        titleTextStyle: {
+                                            color: 'white'
+                                        },
+                                        backgroundColor: 'transparent',
+                                        pieHole: 0.4,
+                                        colors: ['#0067AC', '#BCBCBC'],
+                                        fontSize: 12,
+                                        legend: {
+                                            position: 'bottom',
+                                            alignment: 'start',
+                                            textStyle: {
+                                                color: 'white'
+                                            }
+                                        }
+                                    }}
+                                    rootProps={{ 'data-testid': '1' }}
+                                />
+                            </div>
+                            <div className="col-md-3">
+                                <Chart
+                                    width={'100%'}
+                                    height={'250px'}
+                                    chartType="PieChart"
+                                    loader={<div style={{ color: 'white' }}>Carregando</div>}
+                                    data={[
+                                        ['Sexo', 'Porcentagem'],
+                                        ['MASCULINO', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.sexo === 'FEMININO').length) / 100],
+                                        ['FEMININO', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.sexo === 'MASCULINO').length) / 100],
+                                    ]}
+                                    options={{
+                                        title: 'Sexo',
+                                        titleTextStyle: {
+                                            color: 'white'
+                                        },
+                                        backgroundColor: 'transparent',
+                                        pieHole: 0.4,
+                                        colors: ['#0067AC', '#BCBCBC'],
+                                        fontSize: 12,
+                                        legend: {
+                                            position: 'bottom',
+                                            alignment: 'start',
+                                            textStyle: {
+                                                color: 'white'
+                                            }
+                                        }
+                                    }}
+                                    rootProps={{ 'data-testid': '1' }}
+                                />
+                            </div>
+                        </div>
+                    }
+                    {selectedRow !== -1 &&
+                        <>
                             <div className="col-md-12 line">
-                                <div className="col-md-3 centralizar">
-                                    <p className="course-name">{cursoPercent.curso}</p>
-                                    <p className="students">Alunos: {cursoPercent.quant_aluno}</p>
+                                <div className="col-2 centralizar">
+                                    <MyDonutChart value={alunoDetail.probabilidade_evasao} valuelabel={'Evasão'} size={126} strokewidth={26}/>
                                 </div>
-                                <div className="col-md-3">
-                                    <Chart
-                                        width={'100%'}
-                                        height={'250px'}
-                                        chartType="PieChart"
-                                        loader={<div style={{ color: 'white' }}>Carregando</div>}
-                                        data={[
-                                            ['Constância', 'Porcentagem'],
-                                            ['Evasão', alunos.percentual_evasao],
-                                            ['Permanência', 100 - alunos.percentual_evasao],
-                                        ]}
-                                        options={{
-                                            backgroundColor: 'transparent',
-                                            title: 'Evasão',
-                                            titleTextStyle: {
-                                                color: 'white'
-                                            },
-                                            pieHole: 0.4,
-                                            colors: ['#0067AC', '#BCBCBC'],
-                                            fontSize: 12,
-                                            legend: {
-                                                position: 'bottom',
-                                                alignment: 'start',
-                                                textStyle: {
-                                                    color: 'white'
-                                                }
-                                            }
-                                        }}
-                                        rootProps={{ 'data-testid': '1' }}
-                                    />
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Ano Ingresso
+                                    </p>
+                                    <p>{alunoDetail.ano_ingresso}</p>
                                 </div>
-                                <div className="col-md-3">
-                                    <Chart
-                                        width={'100%'}
-                                        height={'250px'}
-                                        chartType="PieChart"
-                                        loader={<div style={{ color: 'white' }}>Carregando</div>}
-                                        data={[
-                                            ['Escola Pública', 'Porcentagem'],
-                                            ['Não', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.escola_publica === 'SIM').length) / 100],
-                                            ['Sim', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.escola_publica === 'NÃO').length) / 100],
-                                        ]}
-                                        options={{
-                                            title: 'Escola Pública',
-                                            titleTextStyle: {
-                                                color: 'white'
-                                            },
-                                            backgroundColor: 'transparent',
-                                            pieHole: 0.4,
-                                            colors: ['#0067AC', '#BCBCBC'],
-                                            fontSize: 12,
-                                            legend: {
-                                                position: 'bottom',
-                                                alignment: 'start',
-                                                textStyle: {
-                                                    color: 'white'
-                                                }
-                                            }
-                                        }}
-                                        rootProps={{ 'data-testid': '1' }}
-                                    />
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Cidade
+                                    </p>
+                                    <p>{alunoDetail.cidade_endereco}</p>
                                 </div>
-                                <div className="col-md-3">
-                                    <Chart
-                                        width={'100%'}
-                                        height={'250px'}
-                                        chartType="PieChart"
-                                        loader={<div style={{ color: 'white' }}>Carregando</div>}
-                                        data={[
-                                            ['Sexo', 'Porcentagem'],
-                                            ['MASCULINO', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.sexo === 'FEMININO').length) / 100],
-                                            ['FEMININO', (alunos.lista_aluno.length - alunos.lista_aluno.filter(obj => obj.sexo === 'MASCULINO').length) / 100],
-                                        ]}
-                                        options={{
-                                            title: 'Sexo',
-                                            titleTextStyle: {
-                                                color: 'white'
-                                            },
-                                            backgroundColor: 'transparent',
-                                            pieHole: 0.4,
-                                            colors: ['#0067AC', '#BCBCBC'],
-                                            fontSize: 12,
-                                            legend: {
-                                                position: 'bottom',
-                                                alignment: 'start',
-                                                textStyle: {
-                                                    color: 'white'
-                                                }
-                                            }
-                                        }}
-                                        rootProps={{ 'data-testid': '1' }}
-                                    />
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Etnia
+                                    </p>
+                                    <p>{alunoDetail.cor_raca}</p>
+                                </div>
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Escola Pública
+                                    </p>
+                                    <p >{alunoDetail.escola_publica}</p>
+                                </div>
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Abandonará a Universidade
+                                    </p>
+                                    <p >{alunoDetail.status?.toUpperCase()}</p>
                                 </div>
                             </div>
-                        }
-                        {selectedRow !== -1 &&
-                            <>
-                                <div className="col-md-12 line">
-                                    <div className="col-2 centralizar">
-                                        <MyDonutChart value={alunoDetail.probabilidade_evasao} valuelabel={'Evasão'} size={126} strokewidth={26}/>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Ano Ingresso
-                                        </p>
-                                        <p>{alunoDetail.ano_ingresso}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Cidade
-                                        </p>
-                                        <p>{alunoDetail.cidade_endereco}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Etnia
-                                        </p>
-                                        <p>{alunoDetail.cor_raca}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Escola Pública
-                                        </p>
-                                        <p >{alunoDetail.escola_publica}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Abandonará a Universidade
-                                        </p>
-                                        <p >{alunoDetail.status?.toUpperCase()}</p>
-                                    </div>
+                            <div className="col-md-12 line">
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Idade Ingresso
+                                    </p>
+                                    <p >{alunoDetail.idade_ingresso}</p>
                                 </div>
-                                <div className="col-md-12 line">
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Idade Ingresso
-                                        </p>
-                                        <p >{alunoDetail.idade_ingresso}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Total Trancamentos
-                                        </p>
-                                        <p>{alunoDetail.total_trancamentos}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Média Global do Aluno
-                                        </p>
-                                        <p>{alunoDetail.media_global_aluno}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Percentual Integralizado
-                                        </p>
-                                        <p>{alunoDetail.percentual_integralizado}%</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Modadalidade
-                                        </p>
-                                        <p>{alunoDetail.modalidade}</p>
-                                    </div>
-                                    <div className="col-2 centralizar">
-                                        <p className="course" style={{ textAlign: 'center' }}>
-                                            Turno
-                                        </p>
-                                        <p>{alunoDetail.turno}</p>
-                                    </div>
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Total Trancamentos
+                                    </p>
+                                    <p>{alunoDetail.total_trancamentos}</p>
                                 </div>
-                            </>
-                        }
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Média Global do Aluno
+                                    </p>
+                                    <p>{alunoDetail.media_global_aluno}</p>
+                                </div>
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Percentual Integralizado
+                                    </p>
+                                    <p>{alunoDetail.percentual_integralizado}%</p>
+                                </div>
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Modadalidade
+                                    </p>
+                                    <p>{alunoDetail.modalidade}</p>
+                                </div>
+                                <div className="col-2 centralizar">
+                                    <p className="course" style={{ textAlign: 'center' }}>
+                                        Turno
+                                    </p>
+                                    <p>{alunoDetail.turno}</p>
+                                </div>
+                            </div>
+                        </>
+                    }
                     <div className="col-md-12 line" style={{ paddingTop: '5px' }}>
                         <div className="col-md-5 alunos-table-div">
                             <Table celled inverted selectable>
@@ -363,7 +378,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                                 color: 'white'
                                             }
                                         },
-                                        colors: ['#BCBCBC', '#0F084B'],
+                                        colors: ['#b5121b', '#0F084B'],
                                         series: {
                                             1: { curveType: 'function' },
                                         },
@@ -395,6 +410,20 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                     </p>
                                     <p>{alunoDetail.forma_ingresso}</p>
                                 </div>
+                                {PDFliberado &&
+                                    <PDFDownloadLink
+                                        document={<DetalhesPrint matricula={matricula} aluno={alunoDetail} />}
+                                        fileName="teste.pdf"
+                                        className="float"
+                                    >
+                                        <img src={PDFImg} alt="Imagem" className="my_float"/>
+                                    </PDFDownloadLink>
+                                }
+                                {/* <Link to={{
+                                    pathname: `/detalhesprint/aluno/${matricula}`
+                                }} target="_blank" className="float">
+                                    <img src={Img} alt="Imagem" className="my_float"/>
+                                </Link> */}
                             </div>
                         }
                     </div>
