@@ -114,6 +114,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
             setSelectedRow(-1);
         } else {
             setLoader('active');
+            setPDFliberado(false);
             api.get(`evasao/aluno/${matricula}?token=${localStorage.getItem('token')}`)
                 .then(resp => {
                     setMatricula(matricula);
@@ -121,7 +122,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                     setSelectedRow(index);
                     setTimeout(() => {
                         setPDFliberado(true);
-                    }, 4);
+                    }, 5);
                 }).catch(err => {
                     alert(`Erro na tentativa de buscar informações do aluno de matrícula ${matricula}. Error: ${err}`);
                 }).finally(() => {
