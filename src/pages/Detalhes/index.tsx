@@ -117,7 +117,6 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
             api.get(`evasao/aluno/${matricula}?token=${localStorage.getItem('token')}`)
                 .then(resp => {
                     setMatricula(matricula);
-                    localStorage.setItem('aluno', JSON.stringify(resp.data));
                     setAlunoDetail(resp.data);
                     setSelectedRow(index);
                     setTimeout(() => {
@@ -413,17 +412,12 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                 {PDFliberado &&
                                     <PDFDownloadLink
                                         document={<DetalhesPrint matricula={matricula} aluno={alunoDetail} />}
-                                        fileName="teste.pdf"
+                                        fileName={`${matricula}.pdf`}
                                         className="float"
                                     >
                                         <img src={PDFImg} alt="Imagem" className="my_float"/>
                                     </PDFDownloadLink>
                                 }
-                                {/* <Link to={{
-                                    pathname: `/detalhesprint/aluno/${matricula}`
-                                }} target="_blank" className="float">
-                                    <img src={Img} alt="Imagem" className="my_float"/>
-                                </Link> */}
                             </div>
                         }
                     </div>
