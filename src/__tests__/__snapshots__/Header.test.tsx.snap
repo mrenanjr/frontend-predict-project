@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header loads corretly 1`] = `
+<header
+  className="header-container"
+>
+  <div
+    className="img"
+  >
+    <Link
+      to="/inicio"
+    >
+      <img
+        alt="Imagem"
+        src="test-file-stub"
+      />
+    </Link>
+  </div>
+  <Link
+    to="/inicio"
+  >
+    <p>
+      SISAP
+    </p>
+  </Link>
+  <div
+    className="menu "
+  >
+    <div
+      className="menu-toogle"
+      onClick={[Function]}
+    >
+      <div
+        className="one"
+      />
+      <div
+        className="two"
+      />
+      <div
+        className="three"
+      />
+    </div>
+    <div
+      className="elements"
+    >
+      <Select
+        options={
+          Array [
+            Object {
+              "key": "ies",
+              "text": "IES",
+              "value": "IES",
+            },
+          ]
+        }
+        placeholder="Selecione a Instituição"
+        value="IES"
+      />
+      <Link
+        onClick={[Function]}
+        to="/inicio"
+      >
+        <img
+          alt="Home"
+          src="test-file-stub"
+        />
+      </Link>
+      <Link
+        onClick={[Function]}
+        to="/sobrenos"
+      >
+        <img
+          alt="Informação"
+          src="test-file-stub"
+        />
+      </Link>
+      <a
+        onClick={[Function]}
+      >
+        <img
+          alt="Sair"
+          src="test-file-stub"
+        />
+      </a>
+    </div>
+  </div>
+</header>
+`;

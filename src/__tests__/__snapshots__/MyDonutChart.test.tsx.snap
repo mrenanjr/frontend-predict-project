@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyDonutChart loads corretly 1`] = `
+<svg
+  className="donutchart"
+  height={126}
+  width={126}
+>
+  <circle
+    className="donutchart-track"
+    cx={63}
+    cy={63}
+    r={50}
+    style={
+      Object {
+        "strokeWidth": 26,
+      }
+    }
+    transform="rotate(-90 63,63)"
+  />
+  <circle
+    className="donutchart-indicator"
+    cx={63}
+    cy={63}
+    r={50}
+    style={
+      Object {
+        "stroke": "red",
+        "strokeDasharray": "219.91148575128554 314.1592653589793",
+        "strokeWidth": 26,
+      }
+    }
+    transform="rotate(-90 63,63)"
+  />
+  <text
+    className="donutchart-text"
+    style={
+      Object {
+        "textAnchor": "middle",
+      }
+    }
+    x={63}
+    y={63}
+  >
+    <tspan
+      className="donutchart-text-val"
+    >
+      70
+    </tspan>
+    <tspan
+      className="donutchart-text-percent"
+    >
+      %
+    </tspan>
+    <tspan
+      className="donutchart-text-label"
+      dy="0.5em"
+      fill="#0F084B"
+      x={63}
+      y={73}
+    >
+      Teste
+    </tspan>
+  </text>
+</svg>
+`;

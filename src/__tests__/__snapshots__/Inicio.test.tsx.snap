@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inicio loads corretly 1`] = `
+<Fragment>
+  <Header />
+  <Dimmer
+    className=""
+  >
+    <Loader
+      content="Carregando"
+      size="large"
+    />
+  </Dimmer>
+  <main
+    className="container-principal"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-md-12"
+      >
+        <p
+          className="title"
+        >
+          Sistema de Análise Preditiva
+        </p>
+        <p
+          className="students"
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Total de alunos: 
+          0
+        </p>
+      </div>
+      <div
+        className="col-md-12"
+      >
+        <div
+          className="row justify-content-center"
+        >
+          <div
+            className="col-md"
+            style={
+              Object {
+                "justifyContent": "center",
+              }
+            }
+          >
+            <img
+              alt="Back"
+              src="test-file-stub"
+            />
+          </div>
+          <div
+            className="col-md"
+            style={
+              Object {
+                "justifyContent": "center",
+              }
+            }
+          >
+            <img
+              alt="Next"
+              src="test-file-stub"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Fragment>
+`;

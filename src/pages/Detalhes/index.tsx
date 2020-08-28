@@ -4,6 +4,8 @@ import { Table } from 'semantic-ui-react'
 import { CursoPercent } from '../Inicio' 
 import api from '../../services/api';
 import { Dimmer, Loader } from 'semantic-ui-react'
+import InputRange from 'react-input-range';
+import '../../../node_modules/react-input-range/lib/css/index.css'
 
 import './styles.css'
 import PDFImg from '../../assets/picture_as_pdf-24px.svg';
@@ -78,12 +80,21 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
         total_aluno: 0,
         total_evasao: 0
     })
+    const [alunosAux, setAlunosAux] = useState<CursoEvasao>({
+        lista_aluno: [],
+        percentual_evasao: 0,
+        total_aluno: 0,
+        total_evasao: 0
+    })
     const [loader, setLoader] = useState('');
     const [mediaPie, setMediaPie] = useState<string[][]>()
     const [selectedRow, setSelectedRow] = useState<number>(-1);
     const [alunoDetail, setAlunoDetail] = useState<AlunoDetail>({});
     const [matricula, setMatricula] = useState('');
     const [PDFliberado, setPDFliberado] = useState(false);
+    const [range, setRange] = useState({ value: { min: 0, max: 0 }});
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(10000);
     const history = useHistory();
 
     useEffect(() => {
@@ -95,11 +106,23 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
         api.get(`evasao/curso/${props.location.state.curso_abreviado}?token=${localStorage.getItem('token')}`)
             .then(resp => {
                 resp.data.lista_aluno.sort((a: Aluno, b: Aluno) => (a.probabilidade_evasao > b.probabilidade_evasao) ? 1 : -1).reverse();
-                var mediaPieResult = [['Matrícula', 'Média Global Curso', 'Média Global Aluno']];
+                let mediaPieResult = [['Matrícula', 'Média Global Curso', 'Média Global Aluno']];
+                let min = 10000;
+                let max = 0;
                 for(let i  = 0; i < resp.data.lista_aluno.length; i++) {
                     mediaPieResult.push([resp.data.lista_aluno[i].matricula, resp.data.lista_aluno[i].media_global_curso, resp.data.lista_aluno[i].media_global_aluno]);
+                    if(resp.data.lista_aluno[i].ano_ingresso < min) {
+                        min = resp.data.lista_aluno[i].ano_ingresso
+                    }
+                    if(resp.data.lista_aluno[i].ano_ingresso > max) {
+                        max = resp.data.lista_aluno[i].ano_ingresso
+                    }
                 }
-                setAlunos(resp.data);
+                setRange({ value: { min, max }});
+                setMin(min);
+                setMax(max);
+                setAlunos({ ...resp.data });
+                setAlunosAux({ ...resp.data });
                 setMediaPie(mediaPieResult);
             }).catch(err => {
                 alert(`Erro na tentativa de requisitar os alunos do curso de ${cursoPercent.curso}. Error: ${err}`);
@@ -131,6 +154,20 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
         }
     }
 
+    function handleToNewRange(newRange: any) {
+        setRange(newRange);
+    }
+
+    function handleRangeChanged() {
+        const newCursoEvasao = { ...alunosAux };
+        
+        newCursoEvasao.lista_aluno = alunosAux.lista_aluno.filter(aluno => aluno.ano_ingresso >= range.value.min && aluno.ano_ingresso <= range.value.max);
+        newCursoEvasao.total_evasao = newCursoEvasao.lista_aluno.length;
+        newCursoEvasao.percentual_evasao = (newCursoEvasao.total_evasao / newCursoEvasao.total_aluno) * 100;
+
+        setAlunos(newCursoEvasao);
+    }
+
     return (
         <>
             <Header />
@@ -142,8 +179,18 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                     {selectedRow === -1 &&
                         <div className="col-md-12 line">
                             <div className="col-md-3 centralizar">
+                                <p>Filtro por ano:</p>
+                                <br />
+                                <InputRange
+                                    maxValue={max}
+                                    minValue={min}
+                                    value={range.value}
+                                    onChange={value => handleToNewRange({ value })}
+                                    onChangeComplete={handleRangeChanged}
+                                />
                                 <p className="course-name">{cursoPercent.curso}</p>
-                                <p className="students">Alunos: {cursoPercent.quant_aluno}</p>
+                                <p className="students">Total de alunos: {alunos.total_aluno}</p>
+                                <p className="students">Total evasão: {alunos.total_evasao}</p>
                             </div>
                             <div className="col-md-3">
                                 <Chart

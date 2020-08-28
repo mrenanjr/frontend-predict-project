@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login loads corretly 1`] = `
+<Fragment>
+  <Dimmer
+    className=""
+  >
+    <Loader
+      content="Carregando"
+      size="large"
+    />
+  </Dimmer>
+  <div
+    className="container-login fadeInDown"
+  >
+    <div>
+      <p
+        className="title"
+      >
+        SISAP
+      </p>
+      <p
+        className="title-name"
+      >
+        Sistema de Análise Preditiva
+      </p>
+    </div>
+    <form>
+      <Input
+        className="login-input"
+        icon="user"
+        iconPosition="left"
+        onChange={[Function]}
+        placeholder="Informe seu login único."
+        type="email"
+        value=""
+      />
+      <Input
+        className="password-input"
+        icon="lock"
+        iconPosition="left"
+        onChange={[Function]}
+        placeholder="Informe sua senha."
+        type="password"
+        value=""
+      />
+      <button
+        onClick={[Function]}
+        type="submit"
+      >
+        Entrar
+      </button>
+    </form>
+  </div>
+  <Footer />
+</Fragment>
+`;
