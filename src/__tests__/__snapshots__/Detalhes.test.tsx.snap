@@ -1,7 +1,489 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Detalhes loads corretly 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+<Fragment>
+  <Header />
+  <Dimmer
+    className=""
+  >
+    <Loader
+      content="Carregando"
+      size="large"
+    />
+  </Dimmer>
+  <div
+    className="container-principal"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-md-12 line"
+      >
+        <div
+          className="col-md-3 centralizar"
+        >
+          <p>
+            Filtro por ano:
+          </p>
+          <br />
+          <InputRange
+            allowSameValues={false}
+            classNames={
+              Object {
+                "activeTrack": "input-range__track input-range__track--active",
+                "disabledInputRange": "input-range input-range--disabled",
+                "inputRange": "input-range",
+                "labelContainer": "input-range__label-container",
+                "maxLabel": "input-range__label input-range__label--max",
+                "minLabel": "input-range__label input-range__label--min",
+                "slider": "input-range__slider",
+                "sliderContainer": "input-range__slider-container",
+                "track": "input-range__track input-range__track--background",
+                "valueLabel": "input-range__label input-range__label--value",
+              }
+            }
+            disabled={false}
+            maxValue={10000}
+            minValue={0}
+            onChange={[Function]}
+            onChangeComplete={[Function]}
+            step={1}
+            value={
+              Object {
+                "max": 0,
+                "min": 0,
+              }
+            }
+          />
+          <p
+            className="course-name"
+          />
+          <p
+            className="students"
+          >
+            Total de alunos: 
+            0
+          </p>
+          <p
+            className="students"
+          >
+            Total evasão: 
+            0
+          </p>
+        </div>
+        <div
+          className="col-md-3"
+        >
+          <Chart
+            chartActions={null}
+            chartEvents={null}
+            chartType="PieChart"
+            chartWrapperParams={Object {}}
+            className=""
+            columns={null}
+            controls={null}
+            data={
+              Array [
+                Array [
+                  "Constância",
+                  "Porcentagem",
+                ],
+                Array [
+                  "Evasão",
+                  0,
+                ],
+                Array [
+                  "Permanência",
+                  100,
+                ],
+              ]
+            }
+            diffdata={null}
+            formatters={null}
+            getChartEditor={null}
+            getChartWrapper={[Function]}
+            graphID={null}
+            graph_id={null}
+            height="250px"
+            legendToggle={false}
+            legend_toggle={false}
+            loader={
+              <div
+                style={
+                  Object {
+                    "color": "white",
+                  }
+                }
+              >
+                Carregando
+              </div>
+            }
+            options={
+              Object {
+                "backgroundColor": "transparent",
+                "colors": Array [
+                  "#0067AC",
+                  "#BCBCBC",
+                ],
+                "fontSize": 12,
+                "legend": Object {
+                  "alignment": "start",
+                  "position": "bottom",
+                  "textStyle": Object {
+                    "color": "white",
+                  },
+                },
+                "pieHole": 0.4,
+                "title": "Evasão",
+                "titleTextStyle": Object {
+                  "color": "white",
+                },
+              }
+            }
+            render={null}
+            rootProps={
+              Object {
+                "data-testid": "1",
+              }
+            }
+            rows={null}
+            spreadSheetQueryParameters={
+              Object {
+                "gid": 1,
+                "headers": 1,
+              }
+            }
+            spreadSheetUrl={null}
+            style={Object {}}
+            toolbarID={null}
+            toolbarItems={null}
+            width="100%"
+          />
+        </div>
+        <div
+          className="col-md-3"
+        >
+          <Chart
+            chartActions={null}
+            chartEvents={null}
+            chartType="PieChart"
+            chartWrapperParams={Object {}}
+            className=""
+            columns={null}
+            controls={null}
+            data={
+              Array [
+                Array [
+                  "Escola Pública",
+                  "Porcentagem",
+                ],
+                Array [
+                  "Não",
+                  0,
+                ],
+                Array [
+                  "Sim",
+                  0,
+                ],
+              ]
+            }
+            diffdata={null}
+            formatters={null}
+            getChartEditor={null}
+            getChartWrapper={[Function]}
+            graphID={null}
+            graph_id={null}
+            height="250px"
+            legendToggle={false}
+            legend_toggle={false}
+            loader={
+              <div
+                style={
+                  Object {
+                    "color": "white",
+                  }
+                }
+              >
+                Carregando
+              </div>
+            }
+            options={
+              Object {
+                "backgroundColor": "transparent",
+                "colors": Array [
+                  "#0067AC",
+                  "#BCBCBC",
+                ],
+                "fontSize": 12,
+                "legend": Object {
+                  "alignment": "start",
+                  "position": "bottom",
+                  "textStyle": Object {
+                    "color": "white",
+                  },
+                },
+                "pieHole": 0.4,
+                "title": "Escola Pública",
+                "titleTextStyle": Object {
+                  "color": "white",
+                },
+              }
+            }
+            render={null}
+            rootProps={
+              Object {
+                "data-testid": "1",
+              }
+            }
+            rows={null}
+            spreadSheetQueryParameters={
+              Object {
+                "gid": 1,
+                "headers": 1,
+              }
+            }
+            spreadSheetUrl={null}
+            style={Object {}}
+            toolbarID={null}
+            toolbarItems={null}
+            width="100%"
+          />
+        </div>
+        <div
+          className="col-md-3"
+        >
+          <Chart
+            chartActions={null}
+            chartEvents={null}
+            chartType="PieChart"
+            chartWrapperParams={Object {}}
+            className=""
+            columns={null}
+            controls={null}
+            data={
+              Array [
+                Array [
+                  "Sexo",
+                  "Porcentagem",
+                ],
+                Array [
+                  "MASCULINO",
+                  0,
+                ],
+                Array [
+                  "FEMININO",
+                  0,
+                ],
+              ]
+            }
+            diffdata={null}
+            formatters={null}
+            getChartEditor={null}
+            getChartWrapper={[Function]}
+            graphID={null}
+            graph_id={null}
+            height="250px"
+            legendToggle={false}
+            legend_toggle={false}
+            loader={
+              <div
+                style={
+                  Object {
+                    "color": "white",
+                  }
+                }
+              >
+                Carregando
+              </div>
+            }
+            options={
+              Object {
+                "backgroundColor": "transparent",
+                "colors": Array [
+                  "#0067AC",
+                  "#BCBCBC",
+                ],
+                "fontSize": 12,
+                "legend": Object {
+                  "alignment": "start",
+                  "position": "bottom",
+                  "textStyle": Object {
+                    "color": "white",
+                  },
+                },
+                "pieHole": 0.4,
+                "title": "Sexo",
+                "titleTextStyle": Object {
+                  "color": "white",
+                },
+              }
+            }
+            render={null}
+            rootProps={
+              Object {
+                "data-testid": "1",
+              }
+            }
+            rows={null}
+            spreadSheetQueryParameters={
+              Object {
+                "gid": 1,
+                "headers": 1,
+              }
+            }
+            spreadSheetUrl={null}
+            style={Object {}}
+            toolbarID={null}
+            toolbarItems={null}
+            width="100%"
+          />
+        </div>
+      </div>
+      <div
+        className="col-md-12 line"
+        style={
+          Object {
+            "paddingTop": "5px",
+          }
+        }
+      >
+        <div
+          className="col-md-5 alunos-table-div"
+        >
+          <Table
+            as="table"
+            celled={true}
+            inverted={true}
+            selectable={true}
+          >
+            <TableHeader
+              as="thead"
+            >
+              <TableRow
+                as="tr"
+                cellAs="td"
+              >
+                <TableHeaderCell
+                  as="th"
+                >
+                  Matrícula
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                >
+                  Sexo
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                >
+                  Perc. Integralizado
+                </TableHeaderCell>
+                <TableHeaderCell
+                  as="th"
+                >
+                  Prob. de Evasão
+                </TableHeaderCell>
+              </TableRow>
+            </TableHeader>
+            <TableBody
+              as="tbody"
+            />
+          </Table>
+        </div>
+        <div
+          className="col-md-7 "
+        >
+          <Chart
+            chartActions={null}
+            chartEvents={null}
+            chartType="LineChart"
+            chartWrapperParams={Object {}}
+            className=""
+            columns={null}
+            controls={null}
+            data={null}
+            diffdata={null}
+            formatters={null}
+            getChartEditor={null}
+            getChartWrapper={[Function]}
+            graphID={null}
+            graph_id={null}
+            height="185px"
+            legendToggle={false}
+            legend_toggle={false}
+            loader={
+              <div
+                style={
+                  Object {
+                    "color": "white",
+                  }
+                }
+              >
+                Carregando
+              </div>
+            }
+            options={
+              Object {
+                "backgroundColor": "transparent",
+                "colors": Array [
+                  "#b5121b",
+                  "#0F084B",
+                ],
+                "fontSize": 12,
+                "hAxis": Object {
+                  "slantedText": false,
+                  "title": "Matrículas",
+                  "titleTextStyle": Object {
+                    "color": "white",
+                  },
+                },
+                "legend": Object {
+                  "alignment": "start",
+                  "position": "bottom",
+                  "textStyle": Object {
+                    "color": "white",
+                  },
+                },
+                "series": Object {
+                  "1": Object {
+                    "curveType": "function",
+                  },
+                },
+                "vAxis": Object {
+                  "textStyle": Object {
+                    "color": "white",
+                  },
+                  "title": "Médias Globáis",
+                  "titleTextStyle": Object {
+                    "color": "white",
+                  },
+                },
+              }
+            }
+            render={null}
+            rootProps={
+              Object {
+                "data-testid": "2",
+              }
+            }
+            rows={null}
+            spreadSheetQueryParameters={
+              Object {
+                "gid": 1,
+                "headers": 1,
+              }
+            }
+            spreadSheetUrl={null}
+            style={Object {}}
+            toolbarID={null}
+            toolbarItems={null}
+            width="100%"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <Footer />
+</Fragment>
 `;

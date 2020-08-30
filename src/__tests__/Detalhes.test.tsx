@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Link} from 'react-router-dom';
 import { shallow } from 'enzyme';
+import Detalhes from '../pages/Detalhes'; 
 
 const TestDetalhesValues = {
     location: {
@@ -13,7 +13,14 @@ const TestDetalhesValues = {
 }
 
 test('Detalhes loads corretly', () => {
-  const wrapper = shallow(<Link to={{ pathname: `/detalhes/cc`, state:  TestDetalhesValues }}/>);
+  const wrapper = shallow(
+      <Detalhes history={{} as any} match={{} as any} location={{
+          state: TestDetalhesValues.location,
+          pathname: {} as any,
+          search: {} as any,
+          hash: {} as any
+      }} />
+  );
 
   expect(wrapper).toMatchSnapshot();
 });
