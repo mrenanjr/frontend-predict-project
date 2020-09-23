@@ -165,6 +165,13 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
         newCursoEvasao.total_evasao = newCursoEvasao.lista_aluno.length;
         newCursoEvasao.percentual_evasao = (newCursoEvasao.total_evasao / newCursoEvasao.total_aluno) * 100;
 
+        let newMediaPieResult = [['Matrícula', 'Média Global Curso', 'Média Global Aluno']];
+
+        for(let i  = 0; i < newCursoEvasao.lista_aluno.length; i++) {
+            newMediaPieResult.push([newCursoEvasao.lista_aluno[i].matricula, newCursoEvasao.lista_aluno[i].media_global_curso as any, newCursoEvasao.lista_aluno[i].media_global_aluno as any]);
+        }
+
+        setMediaPie(newMediaPieResult);
         setAlunos(newCursoEvasao);
     }
 
@@ -192,9 +199,9 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                 <p className="students">Total de alunos: {alunos.total_aluno}</p>
                                 <p className="students">Total evasão: {alunos.total_evasao}</p>
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-3 centralizar">
                                 <Chart
-                                    width={'100%'}
+                                    width={'250px'}
                                     height={'250px'}
                                     chartType="PieChart"
                                     loader={<div style={{ color: 'white' }}>Carregando</div>}
@@ -223,9 +230,9 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                     rootProps={{ 'data-testid': '1' }}
                                 />
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-3 centralizar">
                                 <Chart
-                                    width={'100%'}
+                                    width={'250px'}
                                     height={'250px'}
                                     chartType="PieChart"
                                     loader={<div style={{ color: 'white' }}>Carregando</div>}
@@ -254,9 +261,9 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                                     rootProps={{ 'data-testid': '1' }}
                                 />
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-3 centralizar">
                                 <Chart
-                                    width={'100%'}
+                                    width={'250px'}
                                     height={'250px'}
                                     chartType="PieChart"
                                     loader={<div style={{ color: 'white' }}>Carregando</div>}
@@ -392,7 +399,7 @@ const Detalhes = (props: RouteComponentProps<{}, any, CursoPercent | any | {}>) 
                             </Table>
                         </div>
                         {selectedRow === -1 &&
-                            <div className="col-md-7 ">
+                            <div className="col-md-7 centralizar">
                                 <Chart
                                     width={'100%'}
                                     height={'185px'}

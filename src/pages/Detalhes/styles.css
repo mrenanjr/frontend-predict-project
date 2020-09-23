@@ -82,10 +82,13 @@ tbody tr {
     cursor: pointer;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1365px) {
     .line {
         flex-direction: column;
         align-items: center;
+    }
+    .input-range {
+        width: 250px;
     }
 }
 
